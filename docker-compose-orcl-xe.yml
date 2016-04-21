@@ -1,0 +1,35 @@
+sugar:
+  image: absolutapps/stack-php55-oracle
+
+  volumes:
+   - ./sugar:/var/www/html/sugar
+   - ./sugar.d:/sugar.d
+
+  links:
+   - oracle
+   - elastic
+  
+  environment:
+   - DB_USER=sugar
+   - DB_PASS=sugar
+   - SUGAR_LICENSE=
+   - SUGAR_DB_TYPE=oci8
+   - ORACLE_SERVICE=XE
+
+oracle:
+  image: sath89/oracle-xe-11g
+
+  volumes:
+   - ./oradata_xe:/u01/app/oracle
+
+  expose:
+   - "1521"
+
+  ports:
+   - "1521"    
+
+elastic:
+  image: elasticsearch:1.4
+
+  volumes:
+  - ./elastic:/usr/share/elasticsearch/data
