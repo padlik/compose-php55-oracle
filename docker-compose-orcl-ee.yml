@@ -15,6 +15,7 @@ sugar:
    - SUGAR_LICENSE=
    - SUGAR_DB_TYPE=oci8
    - ORACLE_SERVICE=orcl
+   - SUGAR_HOST=sugar.sugar.docker
 
 oracle:
   image: absolutapps/oracle-12c-ee
@@ -30,6 +31,7 @@ oracle:
   ports:
    - "1521"
    - "8080"    
+
   privileged: true
 
 elastic:
