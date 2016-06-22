@@ -8,6 +8,7 @@ sugar:
   links:
    - oracle
    - elastic
+   - redis
   
   environment:
    - DB_USER=sugar
@@ -29,8 +30,8 @@ oracle:
    - "8080"
 
   ports:
-   - "1521"
-   - "8080"    
+   - "1521:1521"
+   - "8080:8080"    
 
   privileged: true
 
@@ -39,3 +40,9 @@ elastic:
 
   volumes:
   - ./elastic:/usr/share/elasticsearch/data
+
+redis:
+  image: redis
+  
+  volumes:
+   - ./redis:/data
