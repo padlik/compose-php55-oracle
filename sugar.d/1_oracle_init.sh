@@ -48,7 +48,7 @@ wait_for_oracle
 
 echo "Running sqlplus to create database object for Sugar"
 sqlplus -silent  /nolog  << EOF
-connect system/oracle@${TNS_NAME}
+connect sys/oracle@${TNS_NAME} as sysdba
 create bigfile tablespace $ts_name datafile '/u01/app/oracle/oradata/$ORACLE_SERVICE/$ts_name.dbf' size ${ts_sizeg} G;
 create user $DB_USER identified by $DB_PASS;
 grant dba to $DB_USER;
@@ -58,7 +58,7 @@ create or replace trigger logon_trigger
 after logon on database
 begin
   /*USERNAME SHOULD BE IN UPPERCASE*/
-  if ( user = '$DB_USER' ) then
+  if ( user = UPPER('$DB_USER') ) then
     execute immediate 'ALTER SESSION SET CURSOR_SHARING=FORCE';
     execute immediate 'ALTER SESSION SET SESSION_CACHED_CURSORS=100';
   end if;
